@@ -1,0 +1,21 @@
+package com.revature.daos;
+
+import java.util.ArrayList;
+
+import com.revature.models.Employees;
+
+public interface EmployeeDAOInterface {
+
+	//insert new employee
+	boolean insertEmployee(Employees employee);
+	
+	//get all employees
+	ArrayList<Employees> getEmployees();
+	
+	//delete an employee
+	public void deleteEmployee(String employee);
+	
+	//update an employee's salary
+	boolean updateEmployeeSalary(String employee, int salary);
+	
+}
