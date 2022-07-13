@@ -3,6 +3,7 @@ package com.revature;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.revature.controllers.AuthController;
 import com.revature.controllers.EmployeeController;
 import com.revature.controllers.RoleController;
 import com.revature.utils.ConnectionUtil;
@@ -30,8 +31,11 @@ public class Launcher {
 				
 				).start(3000);
 		
+		AuthController ac = new AuthController();
 		EmployeeController ec = new EmployeeController();
 		RoleController rc = new RoleController();
+		
+		app.post("/login", ac.loginHandler);
 		
 		app.post("employees/:employee", ec.insertEmployeeHandler);
 		app.get("/employees", ec.getEmployeesHandler);

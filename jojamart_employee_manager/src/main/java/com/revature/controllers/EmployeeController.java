@@ -13,42 +13,61 @@ public class EmployeeController {
 	EmployeeDAO eDAO = new EmployeeDAO();
 	
 	public Handler insertEmployeeHandler = (ctx) -> {
-		String body = ctx.body();
-		Gson gson = new Gson();
-		Employees newEmployee = gson.fromJson(body, Employees.class);
+		if(AuthController.ses != null) {	
+			String body = ctx.body();
+			Gson gson = new Gson();
+			Employees newEmployee = gson.fromJson(body, Employees.class);
 		
-		if(eDAO.insertEmployee(newEmployee)) {
-			ctx.status(202);
+			if(eDAO.insertEmployee(newEmployee)) {
+				ctx.status(202);
+			} else {
+				ctx.status(406);
+			}
 		} else {
-			ctx.status(406);
+			ctx.result("You are not logged in");
+			ctx.status(401);
 		}
-		
 	};
 	
 	public Handler getEmployeesHandler = (ctx) -> {
-		ArrayList<Employees> employees = eDAO.getEmployees();
-		Gson gson = new Gson();
-		String Jsonemployees = gson.toJson(employees);
-		ctx.result(Jsonemployees);
-		ctx.status(200);
+		if(AuthController.ses != null) {
+			ArrayList<Employees> employees = eDAO.getEmployees();
+			Gson gson = new Gson();
+			String Jsonemployees = gson.toJson(employees);
+			ctx.result(Jsonemployees);
+			ctx.status(200);
+		} else {
+			ctx.result("You are not logged in");
+			ctx.status(401);
+		}
 	};
 	
 	public Handler deleteEmployeeHandler = (ctx) -> {
-		String employeeToDelete = ctx.pathParam("employee");
-		eDAO.deleteEmployee(employeeToDelete);
+		if(AuthController.ses != null) {
+			String employeeToDelete = ctx.pathParam("employee");
+			eDAO.deleteEmployee(employeeToDelete);
 		
-		ctx.result(employeeToDelete + " has been removed from JojaMart Employees.");
-		ctx.status(202);
+			ctx.result(employeeToDelete + " has been removed from JojaMart Employees.");
+			ctx.status(202);
+		} else {
+			ctx.result("You are not logged in");
+			ctx.status(401);
+		}
 	};
 	
 	public Handler updateEmployeeSalaryHandler = (ctx) -> {
-		String employee = ctx.pathParam("employee");
-		int salary = Integer.parseInt(ctx.body());
+		if(AuthController.ses != null) {
+			String employee = ctx.pathParam("employee");
+			int salary = Integer.parseInt(ctx.body());
 		
-		if(eDAO.updateEmployeeSalary(employee, salary)) {
-			ctx.status(202);
+			if(eDAO.updateEmployeeSalary(employee, salary)) {
+				ctx.status(202);
+			} else {
+				ctx.status(406);
+			}
 		} else {
-			ctx.status(406);
+			ctx.result("You are not logged in");
+			ctx.status(401);
 		}
 	};
 	
