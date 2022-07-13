@@ -17,16 +17,16 @@ public class EmployeeDAO implements EmployeeDAOInterface {
 	public boolean insertEmployee(Employees employee) {
 		
 		try(Connection conn = ConnectionUtil.getConnection()) {
-			String sql = "insert into jojamart_employees (employee_name, employee_role_fk, employee_salary) values (?, ?, ?);";
+			String sql = "insert into jojamart_employees (employee, employee_role_fk, employee_salary) values (?, ?, ?);";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setString(1, employee.getEmployee_name());
+			ps.setString(1, employee.getEmployee());
 			ps.setInt(2, employee.getEmployee_role_fk());
 			ps.setInt(3, employee.getEmployee_salary());
 			
 			ps.executeUpdate();
 			
-			System.out.println(employee.getEmployee_name() + "was added to JojaMart Employees!");
+			System.out.println(employee.getEmployee() + " was added to JojaMart Employees!");
 			
 			return true;
 		} catch(SQLException e) {
@@ -78,7 +78,7 @@ public class EmployeeDAO implements EmployeeDAOInterface {
 	public void deleteEmployee(String employee) {
 
 		try(Connection conn = ConnectionUtil.getConnection()) {
-			String sql = "delete from jojamart_employees where employee_name = ?;";
+			String sql = "delete from jojamart_employees where employee = ?;";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, employee);
 			ps.executeUpdate();
@@ -95,7 +95,7 @@ public class EmployeeDAO implements EmployeeDAOInterface {
 	public boolean updateEmployeeSalary(String employee, int salary) {
 		
 		try(Connection conn = ConnectionUtil.getConnection()) {
-			String sql = "update jojamart_employees set employee_salary = ? where employee_name = ?;";
+			String sql = "update jojamart_employees set employee_salary = ? where employee = ?;";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, salary);
 			ps.setString(2, employee);

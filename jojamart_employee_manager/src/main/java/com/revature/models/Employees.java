@@ -2,7 +2,7 @@ package com.revature.models;
 
 public class Employees {
 	private int employee_id;
-	private String employee_name;
+	private String employee;
 	private Roles role;
 	private int employee_salary;
 	
@@ -15,18 +15,18 @@ public class Employees {
 	}
 
 
-	public Employees(int employee_id, String employee_name, Roles role, int employee_salary) {
+	public Employees(int employee_id, String employee, Roles role, int employee_salary) {
 		super();
 		this.employee_id = employee_id;
-		this.employee_name = employee_name;
+		this.employee = employee;
 		this.role = role;
 		this.employee_salary = employee_salary;
 	}
 
 
-	public Employees(String employee_name, Roles role, int employee_salary) {
+	public Employees(String employee, Roles role, int employee_salary) {
 		super();
-		this.employee_name = employee_name;
+		this.employee = employee;
 		this.role = role;
 		this.employee_salary = employee_salary;
 	}
@@ -34,7 +34,7 @@ public class Employees {
 
 	@Override
 	public String toString() {
-		return "Employees [employee_id=" + employee_id + ", employee_name=" + employee_name + ", role=" + role
+		return "Employees [employee_id=" + employee_id + ", employee=" + employee + ", role=" + role
 				+ ", employee_salary=" + employee_salary + "]";
 	}
 
@@ -49,13 +49,13 @@ public class Employees {
 	}
 
 
-	public String getEmployee_name() {
-		return employee_name;
+	public String getEmployee() {
+		return employee;
 	}
 
 
-	public void setEmployee_name(String employee_name) {
-		this.employee_name = employee_name;
+	public void setEmployee_name(String employee) {
+		this.employee = employee;
 	}
 
 
