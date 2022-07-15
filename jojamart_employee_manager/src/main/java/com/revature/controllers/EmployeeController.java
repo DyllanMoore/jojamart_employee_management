@@ -35,7 +35,7 @@ public class EmployeeController {
 			Gson gson = new Gson();
 			String Jsonemployees = gson.toJson(employees);
 			ctx.result(Jsonemployees);
-			ctx.status(200);
+			ctx.status(202);
 		} else {
 			ctx.result("You are not logged in");
 			ctx.status(401);
@@ -57,7 +57,7 @@ public class EmployeeController {
 	
 	public Handler updateEmployeeSalaryHandler = (ctx) -> {
 		if(AuthController.ses != null) {
-			String employee = ctx.pathParam("employee");
+			String employee = ctx.pathParam("update_salary");
 			int salary = Integer.parseInt(ctx.body());
 		
 			if(eDAO.updateEmployeeSalary(employee, salary)) {
@@ -70,5 +70,38 @@ public class EmployeeController {
 			ctx.status(401);
 		}
 	};
+	
+	public Handler updateEmployeeNameHandler = (ctx) -> {
+		if(AuthController.ses != null) {
+			String oldName = ctx.pathParam("update_name");
+			String newName = ctx.body();
+		
+			if(eDAO.updateEmployeeName(oldName, newName)) {
+				ctx.status(202);
+			} else {
+				ctx.status(406);
+			}
+		} else {
+			ctx.result("You are not logged in");
+			ctx.status(401);
+		}
+	};
+	
+	public Handler updateEmployeeTitleHandler = (ctx) -> {
+		if(AuthController.ses != null) {
+			String employeeTitle = ctx.pathParam("update_title");
+			int title = Integer.parseInt(ctx.body());
+		
+			if(eDAO.updateEmployeeSalary(employeeTitle, title)) {
+				ctx.status(202);
+			} else {
+				ctx.status(406);
+			}
+		} else {
+			ctx.result("You are not logged in");
+			ctx.status(401);
+		}
+	};
+	
 	
 }

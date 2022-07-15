@@ -27,7 +27,7 @@ public class AuthController {
 			
 				ses = ctx.req.getSession(); 
 			
-				ctx.result("welcome " + loginUsername);
+
 				ctx.status(202);
 			} else {
 				ctx.status(401);

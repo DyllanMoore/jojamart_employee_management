@@ -37,6 +37,7 @@ public class EmployeeDAO implements EmployeeDAOInterface {
 		return false;
 	}
 
+
 	@Override
 	public ArrayList<Employees> getEmployees() {
 		
@@ -54,11 +55,11 @@ public class EmployeeDAO implements EmployeeDAOInterface {
 						rs.getInt("employee_salary")
 						);
 				
-				int roleFK = rs.getInt("employee_role_fk");
+				int role_fk = rs.getInt("employee_role_fk");
 				RoleDAO rDAO = new RoleDAO();
-				Roles r = rDAO.getRoleById(roleFK);
+				Roles r = rDAO.getRoleById(role_fk);
 				emp.setRole(r);
-				
+				emp.setEmployee_role_fk(role_fk);
 				employeeList.add(emp);
 			}
 			
@@ -106,6 +107,49 @@ public class EmployeeDAO implements EmployeeDAOInterface {
 			
 		} catch(SQLException e) {
 			System.out.println("Update Employee Salary Failed");
+			e.fillInStackTrace();
+		}
+		
+		return false;
+	}
+
+
+	@Override
+	public boolean updateEmployeeName(String oldName, String newName) {
+		try(Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "update jojamart_employees set employee = ? where employee = ?;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, newName);
+			ps.setString(2, oldName);
+			ps.executeUpdate();
+			System.out.println(oldName + "'s name was changed to " + newName);
+			
+			return true;
+			
+		} catch(SQLException e) {
+			System.out.println("Update Employee Name Failed");
+			e.fillInStackTrace();
+		}
+		
+		return false;
+	}
+
+
+
+	@Override
+	public boolean updateEmployeeTitle(String employeeTitle, int title) {
+		try(Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "update jojamart_employees set employee_role_fk = ? where employee = ?;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, title);
+			ps.setString(2, employeeTitle);
+			ps.executeUpdate();
+			System.out.println(employeeTitle + "'s title was changed to " + title);
+			
+			return true;
+			
+		} catch(SQLException e) {
+			System.out.println("Update Employee Title Failed");
 			e.fillInStackTrace();
 		}
 		

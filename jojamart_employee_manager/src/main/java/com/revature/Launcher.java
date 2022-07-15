@@ -36,11 +36,15 @@ public class Launcher {
 		RoleController rc = new RoleController();
 		
 		app.post("/login", ac.loginHandler);
-		
 		app.post("employees/:employee", ec.insertEmployeeHandler);
+		
 		app.get("/employees", ec.getEmployeesHandler);
+		
 		app.delete("/employees/:employee", ec.deleteEmployeeHandler);
-		app.put("/employees/:employee", ec.updateEmployeeSalaryHandler);
+		
+		app.put("/salary/:update_salary", ec.updateEmployeeSalaryHandler);
+		app.put("/employees/:update_name", ec.updateEmployeeNameHandler);
+		app.put("/title/:update_title", ec.updateEmployeeTitleHandler);
 		
 		app.put("/roles/:role", rc.updateRoleNameHandler);
 		

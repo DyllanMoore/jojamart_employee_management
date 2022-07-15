@@ -8,7 +8,7 @@ public interface EmployeeDAOInterface {
 
 	//insert new employee
 	boolean insertEmployee(Employees employee);
-	
+		
 	//get all employees
 	ArrayList<Employees> getEmployees();
 	
@@ -18,4 +18,7 @@ public interface EmployeeDAOInterface {
 	//update an employee's salary
 	boolean updateEmployeeSalary(String employee, int salary);
 	
+	boolean updateEmployeeName(String oldName, String newName);
+	
+	boolean updateEmployeeTitle(String employeeTitle, int title);
 }
